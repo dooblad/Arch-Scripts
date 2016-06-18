@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+INTERNAL="eDP1"
+EXTERNAL="HDMI1"
+
+xrandr --output $EXTERNAL --off
+xrandr --output $INTERNAL --auto

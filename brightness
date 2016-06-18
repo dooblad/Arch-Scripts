@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; 
+then
+    read -p "Set brightness (0 - $(cat /sys/class/backlight/intel_backlight/max_brightness)): " brightness
+else
+    brightness=$1
+fi
+echo $brightness | sudo tee /sys/class/backlight/intel_backlight/brightness

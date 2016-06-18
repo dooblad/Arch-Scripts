@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+IDEA_FILE="$HOME/progrums/ideas"
+
+if [ "$1" == "list" ]; then
+    cat $IDEA_FILE
+elif [ $1 == "new" ]; then 
+    if [ -z "$2" ]; then
+        read -p "What it is? " text 
+    else
+        text="$2"
+    fi
+    echo -e "  -$text" >> $IDEA_FILE
+    echo "Idea added!"
+fi

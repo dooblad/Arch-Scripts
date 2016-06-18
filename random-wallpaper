@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+WALLPAPER_DIR="$HOME/Pictures/wallpapers/"
+
+feh --bg-scale "$WALLPAPER_DIR$(ls "$WALLPAPER_DIR" | shuf -n 1 -)"

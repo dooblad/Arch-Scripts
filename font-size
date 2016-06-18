@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; 
+then
+    read -p "What size? " size
+else
+    size=$1
+fi
+
+sed --in-place --regexp-extended --expression="s/font.=.(.*) [0-9]+/font = \1 $size/g" $HOME/.config/termite/config
+# TODO: Figure out how to reload Termite using a command 
+echo "Try reloading Termite now! (ctrl-shift-r)"

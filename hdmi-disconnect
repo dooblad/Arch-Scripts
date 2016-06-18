@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+#
+# Thanks to XenGi for the bulk of this script.
+#
+# This script (or a symbolic link to it) should be placed in
+# '/usr/local/bin/hdmi-disconnect.sh'.
+# 
+# The required '.rules' file should be placed in
+# '/etc/udev/rules.d/99-hdmi-disconnect.rules' and should contain
+# the line:
+#
+#   SUBSYSTEM=="drm", ACTION=="change", RUN+="/usr/local/bin/hdmi-disconnect.sh
+#
+
+# Display labels used by 'xrandr'.
+EXTERNAL="HDMI1"
+INTERNAL="eDP1"
+
+if [ $(whoami) != "root" ]; then
+    echo "Run dis as root"
+    exit 1
+fi
+
+if [ ! -f /etc/udev/rules.d/99-hdmi-disconnect.rules ]; then
+    echo "You need a rules file in /etc/udev/rules.d/99-hdmi-disconnect.rules"
+    exit 1
+fi
+
+# Wait a second cuz they told me to.
+sleep 1
+ 
+# If HDMI is disconnected, we actually turn it on, because the event that
+# fires the script gives us the *last* state the displays were in.
+STATUS=$(su $SUDO_USER -c "xrandr --current | grep $EXTERNAL | cut -d \  -f 2")
+if [ "$STATUS" == "disconnected" ]; then
+    su $SUDO_USER -c "xrandr --output $INTERNAL --off"
+    su $SUDO_USER -c "xrandr --output $EXTERNAL --auto"
+    #
+    # TODO: Automatically change default sound.
+    #
+elif [ "$STATUS" == "disconnected" ]; then
+    su $SUDO_USER -c "xrandr --output $EXTERNAL --off"
+    su $SUDO_USER -c "xrandr --output $INTERNAL --auto"
+    #
+    # TODO: Automatically change default sound.
+    #
+fi
