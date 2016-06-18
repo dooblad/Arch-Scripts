@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+SCROT_DIR="$HOME/Pictures/scrots"
+
+if [ ! -d "$SCROT_DIR" ]; then
+    mkdir -p "$SCROT_DIR"
+fi
+
+OLD_DIR="$(pwd)"
+
+cd "$SCROT_DIR"
+scrot
+cd "$OLD_DIR" 
