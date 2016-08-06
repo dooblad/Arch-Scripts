@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+#
+# Author: Anko
+#
+
+OUT_DIR="$HOME/Videos/casts"
+OUT_NAME="out"
+if [[ "$#" -ge 1 ]]; then
+    if [[ "$1" == "help" ]]; then
+        echo "Usage: mov-cast [help | -o <out-file>]"
+        exit 0
+    elif [[ "$1" == "-o" ]]; then
+        if [[ "$#" -ge 2 ]]; then
+            OUT_NAME="$2"
+        else
+            echo "No out-file specified..."
+            exit 1
+        fi
+    else
+        echo "Dafuq is option \"$1\""
+        exit 1
+    fi
+fi
+
+#
+# TODO: Compress using a variation of this command:
+#   ffmpeg -i input.avi -vcodec msmpeg4v2 -acodec copy output.avi
+#
+
+ffcast -s % ffmpeg -y -f x11grab -show_region 1 -framerate 15 \
+    -video_size %s -i %D+%c -codec:v huffyuv                  \
+    -vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" "$OUT_DIR/$OUT_NAME.avi"

@@ -4,7 +4,7 @@ IDEA_FILE="$HOME/progrums/ideas"
 
 if [ "$1" == "list" ]; then
     cat $IDEA_FILE
-elif [ $1 == "new" ]; then 
+elif [ "$1" == "add" ]; then 
     if [ -z "$2" ]; then
         read -p "What it is? " text 
     else
@@ -12,4 +12,6 @@ elif [ $1 == "new" ]; then
     fi
     echo -e "  -$text" >> $IDEA_FILE
     echo "Idea added!"
+else
+    echo "Usage: ideas [list | add]"
 fi

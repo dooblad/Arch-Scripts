@@ -9,5 +9,5 @@ fi
 OLD_DIR="$(pwd)"
 
 cd "$SCROT_DIR"
-scrot
+scrot "$@"
 cd "$OLD_DIR" 

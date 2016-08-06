@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+#
+# Logs you out
+#
+echo "You sher, dawg?"
+select YN in "Yes" "No"; do
+    case $YN in
+        Yes ) pkill -KILL -u $(whoami);;
+        No ) exit;;
+    esac
+done
