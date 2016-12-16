@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# A thin wrapper around maim that defaults to saving screenshots in a more
+# convenient directory than the home folder.
+
 SCROT_DIR="$HOME/Pictures/scrots"
 
 if [ ! -d "$SCROT_DIR" ]; then
@@ -9,5 +12,5 @@ fi
 OLD_DIR="$(pwd)"
 
 cd "$SCROT_DIR"
-scrot "$@"
+maim "$@"
 cd "$OLD_DIR" 

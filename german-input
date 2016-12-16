@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo -e "Ä\tC4"
+echo -e "ä\tE4"
+echo -e "Ë\tCB"
+echo -e "ë\tEB"
+echo -e "Ï\tCF"
+echo -e "ï\tEF"
+echo -e "Ö\tD6"
+echo -e "ö\tF6"
+echo -e "Ü\tDC"
+echo -e "ü\tFC"
+echo -e "Ÿ\t9F"
+echo -e "ÿ\tFF"
+echo -e "ß\tDF"

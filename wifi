@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 
-# This might differ from kumpooter 2 kumpooter
-WIFI_PREFIX="wlp6s0"
-POINTS="$(ls /etc/netctl | grep "wlp6s0")"
-CURRENT="${WIFI_PREFIX}-$(echo "$(iwgetid -r)" | sed 's/ /-/g')"
+# Strip off selection asterisk and whitespace (WiFi profiles shouldn't have
+# internal spaces)
+POINTS="$(netctl list | sed 's/[\* ]//g')"
+
+# Extract the second field of the string with format:
+#     "* <WiFi profile name>"
+CURRENT="$(netctl list | grep '*' | cut --delimiter=" " --fields=2)"
 
 select ACCESS_POINT in $POINTS; do
     # Stop the current one
-    sudo netctl stop "$CURRENT"
+    if [[ "$CURRENT" != "" ]]; then
+        sudo netctl stop "$CURRENT"
+    fi
 
     # Connect to the chosen one
     sudo netctl start "$ACCESS_POINT"
